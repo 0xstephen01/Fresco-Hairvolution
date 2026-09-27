@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fresco Hairvolution · Home Barber Service in Lagos</title>
+    <meta
+      name="description"
+      content="Fresco Hairvolution cuts hair at your home in Lagos. Fades, beards, kids and combos, seven days a week. Book a slot, send your address, pay after the cut."
+    />
+    <meta name="theme-color" content="#0f0f0f" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Fresco Hairvolution · Sharp cuts at your door" />
+    <meta
+      property="og:description"
+      content="A barber who comes to you. Fades, beards, kids and combos across Lagos, seven days a week."
+    />
+    <meta property="og:image" content="/uploads/hero.jpg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      // The preview runs inside the Vivid builder's iframe on another origin.
+      // Relay runtime errors to the parent so the builder can show "Fix this".
+      (function () {
+        if (window.parent === window) return;
+        function relay(message, stack) {
+          try {
+            window.parent.postMessage(
+              { type: "vivid:error", message: String(message || "").slice(0, 500), stack: String(stack || "").slice(0, 1500) },
+              "*"
+            );
+          } catch (_) {}
+        }
+        window.addEventListener("error", function (e) { relay(e.message, e.error && e.error.stack); });
+        window.addEventListener("unhandledrejection", function (e) {
+          var r = e.reason || {};
+          relay(r.message || String(r), r.stack);
+        });
+      })();
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  <!-- vivid:editor -->
+<script>
+(function () {
+  if (window.parent === window || window.__vividEditor) return;
+  window.__vividEditor = true;
+  var on = false, owner = null, hovered = null, editing = null, original = "";
+  var style = document.createElement("style");
+  style.textContent =
+    "[data-vivid-hover]{outline:2px dashed #7c5cff !important;outline-offset:2px;cursor:pointer !important}" +
+    "[data-vivid-editing]{outline:2px solid #7c5cff !important;outline-offset:2px;cursor:text !important}";
+  function send(msg) { if (owner) window.parent.postMessage(msg, owner); }
+  function bgUrl(el) {
+    for (var i = 0; el && i < 4; i++, el = el.parentElement) {
+      var m = /url\(["']?([^"')]+)["']?\)/.exec(getComputedStyle(el).backgroundImage || "");
+      if (m) return m[1];
+    }
+    return null;
+  }
+  function imageOf(el) {
+    if (el.tagName === "IMG") return el.currentSrc || el.src;
+    var pic = el.closest && el.closest("picture");
+    if (pic) { var img = pic.querySelector("img"); if (img) return img.currentSrc || img.src; }
+    return null;
+  }
+  function textOnly(el) {
+    if (!el || el === document.body || el === document.documentElement) return false;
+    if (/^(INPUT|TEXTAREA|SELECT|SCRIPT|STYLE|SVG|PATH|IMG|VIDEO|CANVAS|IFRAME)$/i.test(el.tagName)) return false;
+    for (var i = 0; i < el.children.length; i++) if (el.children[i].tagName !== "BR") return false;
+    return (el.textContent || "").trim().length > 0;
+  }
+  function mark(el) {
+    if (hovered && hovered !== el) hovered.removeAttribute("data-vivid-hover");
+    hovered = el;
+    if (el && el !== editing) el.setAttribute("data-vivid-hover", "");
+  }
+  function finish(keep) {
+    var el = editing;
+    if (!el) return;
+    editing = null;
+    el.removeAttribute("data-vivid-editing");
+    el.removeAttribute("contenteditable");
+    var now = el.textContent || "";
+    if (!keep) { el.textContent = original; return; }
+    if (now.trim() && now.trim() !== original.trim()) send({ type: "vivid:text-edit", old: original, new: now });
+    else el.textContent = original;
+  }
+  function onOver(e) { if (on) mark(e.target); }
+  function onClick(e) {
+    if (!on) return;
+    var el = e.target;
+    if (editing && editing.contains(el)) return;
+    e.preventDefault(); e.stopPropagation();
+    finish(true);
+    var src = imageOf(el) || (textOnly(el) ? null : bgUrl(el));
+    if (src) { send({ type: "vivid:image-pick", src: src }); return; }
+    if (!textOnly(el)) { send({ type: "vivid:edit-hint", reason: "not_text" }); return; }
+    editing = el; original = el.textContent || "";
+    el.removeAttribute("data-vivid-hover");
+    el.setAttribute("data-vivid-editing", "");
+    try { el.contentEditable = "plaintext-only"; } catch (_) {}
+    if (el.contentEditable !== "plaintext-only") el.contentEditable = "true";
+    el.focus();
+    var range = document.createRange(); range.selectNodeContents(el);
+    var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+  }
+  function onKey(e) {
+    if (!editing) return;
+    if (e.key === "Escape") { e.preventDefault(); finish(false); }
+    else if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); finish(true); }
+  }
+  function onBlur(e) { if (editing && e.target === editing) finish(true); }
+  function block(e) { if (on && !(editing && editing.contains(e.target))) { e.preventDefault(); e.stopPropagation(); } }
+  function setMode(next) {
+    if (next === on) return;
+    on = next;
+    var add = on ? "addEventListener" : "removeEventListener";
+    document[add]("mouseover", onOver, true);
+    document[add]("click", onClick, true);
+    document[add]("keydown", onKey, true);
+    document[add]("blur", onBlur, true);
+    document[add]("submit", block, true);
+    document[add]("mousedown", block, true);
+    if (on) document.head.appendChild(style);
+    else { finish(false); mark(null); if (style.parentNode) style.remove(); }
+  }
+  function bust(src) {
+    var base = String(src || "").split("?")[0], stamp = "vivid=" + Date.now();
+    document.querySelectorAll("img").forEach(function (img) {
+      if ((img.currentSrc || img.src).split("?")[0] === base) {
+        img.removeAttribute("srcset");
+        img.src = base + "?" + stamp;
+      }
+    });
+  }
+  window.addEventListener("message", function (e) {
+    if (e.source !== window.parent) return;
+    var d = e.data || {};
+    if (d.type === "vivid:edit-mode") { owner = e.origin; setMode(!!d.on); }
+    else if (d.type === "vivid:image-updated" && e.origin === owner) bust(d.src);
+  });
+  window.parent.postMessage({ type: "vivid:editor-ready" }, "*");
+})();
+</script>
+<!-- /vivid:editor -->
+</body>
+</html>
