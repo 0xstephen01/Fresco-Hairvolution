@@ -136,15 +136,8 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 flex flex-row items-center justify-between gap-2 border-t border-white/10 pt-6 text-[9px] text-muted-foreground sm:mt-12 sm:pt-8 sm:text-xs">
+        <div className="mt-8 border-t border-white/10 pt-6 text-[9px] text-muted-foreground sm:mt-12 sm:pt-8 sm:text-xs">
           <p>© {new Date().getFullYear()} Fresco Hairvolution, Lagos.</p>
-          <button
-            type="button"
-            onClick={() => navigate("/admin")}
-            className="cursor-pointer underline underline-offset-4 transition-colors hover:text-foreground"
-          >
-            Owner sign in
-          </button>
         </div>
       </div>
     </footer>
