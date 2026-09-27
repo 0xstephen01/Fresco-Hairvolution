@@ -10,8 +10,8 @@ const FACTS = [
 export function AboutFresco() {
   return (
     <Section id="about" tone="light">
-      <div className="grid grid-cols-[minmax(0,1fr)_1.25fr] items-center gap-x-5 gap-y-4 sm:grid-cols-[minmax(0,0.9fr)_1fr] sm:gap-x-8 lg:grid-cols-[minmax(0,24rem)_1fr] lg:gap-x-12">
-        <div className="relative aspect-[3/4] overflow-hidden rounded-xl lg:rounded-2xl">
+      <div className="grid grid-cols-[minmax(0,1.3fr)_1fr] items-center gap-x-3 gap-y-4 sm:grid-cols-[minmax(0,0.9fr)_1fr] sm:gap-x-8 lg:grid-cols-[minmax(0,24rem)_1fr] lg:gap-x-12">
+        <div className="relative min-h-[16rem] self-stretch overflow-hidden rounded-xl sm:aspect-[3/4] sm:min-h-0 sm:self-center lg:rounded-2xl">
           <img
             src={PORTRAIT_IMAGE}
             alt="Fresco, the barber behind Fresco Hairvolution"
