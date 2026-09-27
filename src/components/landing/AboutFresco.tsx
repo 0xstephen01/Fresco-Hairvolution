@@ -10,7 +10,7 @@ const FACTS = [
 export function AboutFresco() {
   return (
     <Section id="about" tone="light">
-      <div className="grid grid-cols-[minmax(0,1.3fr)_1fr] gap-x-3 gap-y-4 sm:grid-cols-[minmax(0,0.9fr)_1fr] sm:gap-x-8 lg:grid-cols-[minmax(0,24rem)_1fr] lg:gap-x-12">
+      <div className="grid grid-cols-[minmax(0,1fr)_1.35fr] gap-x-3 gap-y-4 sm:grid-cols-[minmax(0,0.75fr)_1fr] sm:gap-x-8 lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-x-12">
         <div className="relative col-start-1 row-start-2 self-stretch overflow-hidden rounded-xl sm:row-span-3 sm:row-start-1 sm:aspect-[3/4] sm:self-center lg:rounded-2xl">
           <img
             src={PORTRAIT_IMAGE}
