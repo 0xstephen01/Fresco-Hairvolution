@@ -10,8 +10,8 @@ const FACTS = [
 export function AboutFresco() {
   return (
     <Section id="about" tone="light">
-      <div className="grid grid-cols-[minmax(0,1fr)_1.35fr] gap-x-3 gap-y-4 sm:grid-cols-[minmax(0,0.75fr)_1fr] sm:gap-x-8 lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-x-12">
-        <div className="relative col-start-1 row-start-2 self-stretch overflow-hidden rounded-xl sm:row-span-3 sm:row-start-1 sm:aspect-[3/4] sm:self-center lg:rounded-2xl">
+      <div className="grid grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] gap-x-3 gap-y-4 sm:grid-cols-[minmax(0,0.75fr)_1fr] sm:gap-x-8 lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-x-12">
+        <div className="relative col-start-1 row-start-2 aspect-[3/4] self-start overflow-hidden rounded-xl sm:row-span-3 sm:row-start-1 sm:self-center lg:rounded-2xl">
           <img
             src={PORTRAIT_IMAGE}
             alt="Fresco, the barber behind Fresco Hairvolution"
@@ -45,13 +45,13 @@ export function AboutFresco() {
           </div>
         </div>
 
-        <dl className="col-start-2 row-start-3 mt-4 grid grid-cols-3 gap-3 border-t border-foreground/15 pt-4 sm:mt-2 sm:gap-6 sm:pt-6 lg:mt-4 lg:gap-8 lg:pt-8">
+        <dl className="col-start-2 row-start-3 mt-4 grid grid-cols-3 gap-2 border-t border-foreground/15 pt-4 sm:mt-2 sm:gap-6 sm:pt-6 lg:mt-4 lg:gap-8 lg:pt-8">
           {FACTS.map((fact) => (
             <div key={fact.value}>
-              <dt className="font-display text-sm font-semibold tracking-tight sm:text-lg lg:text-2xl">
+              <dt className="font-display text-xs font-semibold tracking-tight sm:text-lg lg:text-2xl">
                 {fact.value}
               </dt>
-              <dd className="mt-1 text-[9px] leading-relaxed text-muted-foreground sm:mt-2 sm:text-xs lg:text-sm">
+              <dd className="mt-1 text-[8px] leading-snug text-muted-foreground sm:mt-2 sm:text-xs lg:text-sm">
                 {fact.label}
               </dd>
             </div>
